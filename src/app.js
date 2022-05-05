@@ -1,4 +1,4 @@
-// import data from './data.js';
+import data from './data.js';
 
 const { body } = document;
 
@@ -19,4 +19,17 @@ const buildNode = (element, innerHTML, ...classes) => {
   wrapper.append(textarea);
   const keyboard = buildNode('div', '', 'keyboard');
   wrapper.append(keyboard);
+}());
+
+const keyboard = document.querySelector('.keyboard');
+
+(function buildKeys() {
+  for (let i = 0; i < data.length; i += 1) {
+    const row = buildNode('div', '', 'keyboard-row');
+    keyboard.append(row);
+    for (let j = 0; j < data[i].length; j += 1) {
+      const key = buildNode('div', data[i][j].key, 'key');
+      row.append(key);
+    }
+  }
 }());
