@@ -1,0 +1,1 @@
+{"scripts":{"lint":"eslint ./src","lint:fix":"eslint ./src --fix"},"devDependencies":{"eslint":"^8.14.0","eslint-config-airbnb":"^19.0.4"},"dependencies":{"normalize.css":"^8.0.1"}}
