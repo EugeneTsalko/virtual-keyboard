@@ -13,7 +13,7 @@ body {
 .wrapper {
   display: flex;
   flex-direction: column;
-  height: 70%;
+  height: 80%;
   justify-content: space-between;
   align-content: center;
   padding: 10px;
@@ -24,6 +24,13 @@ textarea {
   border-radius: 10px;
   resize: none;
   height: 250px;
+  margin-bottom: 50px;
+  background-color: white;
+  border-width: 10px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: #ece8e4 #dedad6 #c9c4c4;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 .keyboard {

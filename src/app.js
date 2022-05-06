@@ -1,7 +1,7 @@
 import dataEn from './dataEn.js';
 import dataRu from './dataRu.js';
 
-// console.log(dataEn[0])
+//
 
 const { body } = document;
 
@@ -14,19 +14,22 @@ const buildNode = (element, innerHTML = '', ...classes) => {
 };
 
 // отрисовка лэйаута
+
 (function buildPage() {
   const wrapper = buildNode('div', '', 'wrapper');
   body.append(wrapper);
   const textarea = buildNode('textarea', '', 'textarea');
   textarea.setAttribute('autofocus', '');
-  // textarea.setAttribute('disabled', '');
+  textarea.setAttribute('disabled', '');
   wrapper.append(textarea);
   const keyboard = buildNode('div', '', 'keyboard');
   wrapper.append(keyboard);
 }());
 
 const keyboard = document.querySelector('.keyboard');
+
 // отрисовка кнопок клавиатуры
+
 function buildKeys(data) {
   for (let i = 0; i < data.length; i += 1) {
     const row = buildNode('div', '', 'keyboard-row');
@@ -39,35 +42,72 @@ function buildKeys(data) {
   }
 }
 
-if (localStorage.lang === 'ru') {
-  buildKeys(dataRu);
-} else {
-  localStorage.lang = 'en';
-  buildKeys(dataEn);
-}
+(function () {
+  if (localStorage.lang === 'ru') {
+    buildKeys(dataRu);
+  } else {
+    localStorage.lang = 'en';
+    buildKeys(dataEn);
+  }
+}());
+
+// стили
+
+const backSpace = document.querySelector('[data-code="Backspace"]');
+backSpace.classList.add('backspace');
+const tab = document.querySelector('[data-code="Tab"]');
+tab.classList.add('alter');
+const enter = document.querySelector('[data-code="Enter"]');
+enter.classList.add('enter');
+const shiftLeft = document.querySelector('[data-code="ShiftLeft"]');
+shiftLeft.classList.add('alter');
+const shiftRight = document.querySelector('[data-code="ShiftRight"]');
+shiftRight.classList.add('alter');
+const cntrlLeft = document.querySelector('[data-code="ControlLeft"]');
+cntrlLeft.classList.add('alter');
+const cntrlRight = document.querySelector('[data-code="ControlRight"]');
+cntrlRight.classList.add('alter');
+const altLeft = document.querySelector('[data-code="AltLeft"]');
+altLeft.classList.add('alter');
+const altRight = document.querySelector('[data-code="AltRight"]');
+altRight.classList.add('alter');
+const space = document.querySelector('[data-code="Space"]');
+space.classList.add('space');
 
 // анимация и нажатие с клавиатуры
+
 document.addEventListener('keydown', (event) => {
+  // console.log(event.code);
   document.querySelector(`[data-code="${event.code}"]`).classList.add('pressed');
 });
 document.addEventListener('keyup', (event) => {
   document.querySelector(`[data-code="${event.code}"]`).classList.remove('pressed');
 });
+
 // анимация и нажатие с мыши
+
 const keys = document.querySelectorAll('.key');
 keys.forEach((element) => element.addEventListener('mousedown', (event) => event.target.classList.add('pressed')));
 keys.forEach((element) => element.addEventListener('mouseup', (event) => event.target.classList.remove('pressed')));
 keys.forEach((element) => element.addEventListener('mouseout', (event) => event.target.classList.remove('pressed')));
+
 // печать
+
 const textarea = document.querySelector('.textarea');
-const typeKey = (event) => {
+
+const clickKey = (event) => {
   textarea.focus();
-  console.log(event.target);
+  // console.log(event.target);
   textarea.value += event.target.innerHTML;
 };
 
-keys.forEach((element) => element.addEventListener('click', typeKey));
-keys.forEach((element) => element.addEventListener('keydown', typeKey));
+const typeKey = (event) => {
+  textarea.focus();
+  textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
+};
+
+keys.forEach((element) => element.addEventListener('click', clickKey));
+document.addEventListener('keydown', typeKey);
 
 // смена языка
 function changeKeys(data) {
@@ -129,25 +169,16 @@ function capsLockOn() {
 }
 capsLock.addEventListener('click', (e) => e.target.classList.toggle('active'));
 capsLock.addEventListener('click', capsLockOn);
+// ['click', 'keydown'].forEach((event) => capsLock.addEventListener(event, capsLockOn));
 
-// стили
-const backSpace = document.querySelector('[data-code="Backspace"]');
-backSpace.classList.add('backspace');
-const tab = document.querySelector('[data-code="Tab"]');
-tab.classList.add('alter');
-const enter = document.querySelector('[data-code="Enter"]');
-enter.classList.add('enter');
-const shiftLeft = document.querySelector('[data-code="ShiftLeft"]');
-shiftLeft.classList.add('alter');
-const shiftRight = document.querySelector('[data-code="ShiftRight"]');
-shiftRight.classList.add('alter');
-const cntrlLeft = document.querySelector('[data-code="ControlLeft"]');
-cntrlLeft.classList.add('alter');
-const cntrlRight = document.querySelector('[data-code="ControlRight"]');
-cntrlRight.classList.add('alter');
-const altLeft = document.querySelector('[data-code="AltLeft"]');
-altLeft.classList.add('alter');
-const altRight = document.querySelector('[data-code="AltRight"]');
-altRight.classList.add('alter');
-const space = document.querySelector('[data-code="Space"]');
-space.classList.add('space');
+// document.addEventListener('keydown', (event) => {
+//   textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
+// });
+
+// РЕАЛИЗОВАТЬ ОТСУТСВИЕ ПЕЧАТИ НА УПРАВЛЯЮЩИХ КЛАВИШАХ
+// РЕАЛИЗОВАТЬ ШИФТ 2 ШТУКИ
+// РЕАЛИЗОВАТЬ БЭКСПЕЙС
+// РЕАЛИЗОВАТЬ ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА ПО КНОПКЕ НА ВИРТ КЛАВЕ
+// РЕАЛИЗОВАТЬ ЭНТЕР
+// РЕАЛИЗОВАТЬ ТАБ
+// РЕАЛИЗОВАТЬ ХЕДЕР ФУТЕР ТЕКСТ
