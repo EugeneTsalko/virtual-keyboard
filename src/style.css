@@ -60,11 +60,9 @@ textarea {
 .key.pressed {
   transform: scale(0.95, 0.95) translate(0, 3px);
   border-color: rgba(41, 243, 5, 0.9294117647);
-  background: #e4e0dd;
 }
 .key:hover {
   border-color: rgba(41, 243, 5, 0.9294117647);
-  background: #e4e0dd;
 }
 .key.alter {
   background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2);

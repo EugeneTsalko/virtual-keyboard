@@ -1,4 +1,4 @@
-const data = [
+const dataEn = [
   [ // row 1 en
     { key: '`', code: 'Backquote' },
     { key: '1', code: 'Digit1' },
@@ -70,7 +70,8 @@ const data = [
     { key: '◄', code: 'ArrowLeft' },
     { key: '▼', code: 'ArrowDown' },
     { key: '►', code: 'ArrowRight' },
+    { key: 'eng', code: 'lang' },
   ],
 ];
 
-export default data;
+export default dataEn;

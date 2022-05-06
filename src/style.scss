@@ -73,12 +73,12 @@ textarea {
     &.pressed {
         transform: scale(0.95, 0.95) translate(0, 3px);
         border-color:#29f305ed;
-        background: #e4e0dd;
+        // background: #e4e0dd;
     }
     &:hover {
         // border-color:#ece8e4a9 #dedad67a #c9c4c48c;
         border-color:#29f305ed;
-        background: #e4e0dd;
+        // background: #e4e0dd;
     }
     &.alter {
         @include alterKey();

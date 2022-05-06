@@ -1,20 +1,25 @@
-import data from './data.js';
+import dataEn from './dataEn.js';
+import dataRu from './dataRu.js';
+
+// console.log(dataEn[0])
 
 const { body } = document;
 
-const buildNode = (element, innerHTML, ...classes) => {
+const buildNode = (element, innerHTML = '', ...classes) => {
   const node = document.createElement(element);
   node.classList.add(...classes);
   node.classList.add(...classes);
   node.innerHTML = innerHTML;
   return node;
 };
+
 // отрисовка лэйаута
 (function buildPage() {
   const wrapper = buildNode('div', '', 'wrapper');
   body.append(wrapper);
   const textarea = buildNode('textarea', '', 'textarea');
   textarea.setAttribute('autofocus', '');
+  // textarea.setAttribute('disabled', '');
   wrapper.append(textarea);
   const keyboard = buildNode('div', '', 'keyboard');
   wrapper.append(keyboard);
@@ -22,7 +27,7 @@ const buildNode = (element, innerHTML, ...classes) => {
 
 const keyboard = document.querySelector('.keyboard');
 // отрисовка кнопок клавиатуры
-(function buildKeys() {
+function buildKeys(data) {
   for (let i = 0; i < data.length; i += 1) {
     const row = buildNode('div', '', 'keyboard-row');
     keyboard.append(row);
@@ -32,13 +37,21 @@ const keyboard = document.querySelector('.keyboard');
       row.append(key);
     }
   }
-}());
+}
+
+if (localStorage.lang === 'ru') {
+  buildKeys(dataRu);
+} else {
+  localStorage.lang = 'en';
+  buildKeys(dataEn);
+}
+
 // анимация и нажатие с клавиатуры
 document.addEventListener('keydown', (event) => {
-  document.querySelector(`[data-code=${event.code}]`).classList.add('pressed');
+  document.querySelector(`[data-code="${event.code}"]`).classList.add('pressed');
 });
 document.addEventListener('keyup', (event) => {
-  document.querySelector(`[data-code=${event.code}]`).classList.remove('pressed');
+  document.querySelector(`[data-code="${event.code}"]`).classList.remove('pressed');
 });
 // анимация и нажатие с мыши
 const keys = document.querySelectorAll('.key');
@@ -46,12 +59,46 @@ keys.forEach((element) => element.addEventListener('mousedown', (event) => event
 keys.forEach((element) => element.addEventListener('mouseup', (event) => event.target.classList.remove('pressed')));
 keys.forEach((element) => element.addEventListener('mouseout', (event) => event.target.classList.remove('pressed')));
 // печать
-// const textarea = document.querySelector('.textarea');
-// textarea.selectionStart(0, 0);
-// window.onload = function() {
-//   textarea.setAttribute('autofocus');
-// textarea.focus();}
-// const type = (event, key, code) => {
-//   let cursor = textarea.selectionStart;
-//   textarea.focus();
-// }
+const textarea = document.querySelector('.textarea');
+const typeKey = (event) => {
+  textarea.focus();
+  console.log(event.target);
+  textarea.value += event.target.innerHTML;
+};
+
+keys.forEach((element) => element.addEventListener('click', typeKey));
+keys.forEach((element) => element.addEventListener('keydown', typeKey));
+
+// смена языка
+function changeKeys(data) {
+  const values = [];
+  for (let i = 0; i < data.length; i += 1) {
+    for (let j = 0; j < data[i].length; j += 1) {
+      values.push(data[i][j].key);
+    }
+    for (let n = 0; n < values.length; n += 1) {
+      keys[n].textContent = values[n];
+    }
+  }
+}
+
+function changeLang() {
+  const cntrl = document.querySelector('[data-code="ControlLeft"]');
+  const alt = document.querySelector('[data-code="AltLeft"]');
+  if (cntrl.classList.contains('pressed')) {
+    if (alt.classList.contains('pressed')) {
+      if (localStorage.lang === 'en') {
+        localStorage.lang = 'ru';
+        // console.log(localStorage.lang);
+        changeKeys(dataRu);
+      } else if (localStorage.lang === 'ru') {
+        localStorage.lang = 'en';
+        // console.log(localStorage.lang);
+        changeKeys(dataEn);
+      }
+    }
+  }
+}
+// const langSwitch = document.querySelector('[data-code="lang"]');
+document.addEventListener('keydown', changeLang);
+// langSwitch.addEventListener('click', changeLang);
