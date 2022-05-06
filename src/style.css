@@ -59,11 +59,11 @@ textarea {
 }
 .key.pressed {
   transform: scale(0.95, 0.95) translate(0, 3px);
-  border-color: rgba(236, 232, 228, 0.662745098) rgba(222, 218, 214, 0.4784313725) rgba(201, 196, 196, 0.5490196078);
+  border-color: rgba(41, 243, 5, 0.9294117647);
   background: #e4e0dd;
 }
 .key:hover {
-  border-color: rgba(236, 232, 228, 0.662745098) rgba(222, 218, 214, 0.4784313725) rgba(201, 196, 196, 0.5490196078);
+  border-color: rgba(41, 243, 5, 0.9294117647);
   background: #e4e0dd;
 }
 .key.alter {
