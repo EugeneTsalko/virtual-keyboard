@@ -86,3 +86,11 @@ textarea {
     }
 }
 
+.capslock {
+    @include alterKey();
+    // background: $keyAlterGradient;
+    flex-grow: 1;
+    &.active {
+        border-color:#29f305ed;
+    }
+}

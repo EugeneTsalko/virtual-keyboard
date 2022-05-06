@@ -68,4 +68,13 @@ textarea {
   background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2);
   border-color: #c4c7cc #adb9cc #96a6bd;
   flex-grow: 1;
+}
+
+.capslock {
+  background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2);
+  border-color: #c4c7cc #adb9cc #96a6bd;
+  flex-grow: 1;
+}
+.capslock.active {
+  border-color: rgba(41, 243, 5, 0.9294117647);
 }/*# sourceMappingURL=style.css.map */

@@ -102,3 +102,30 @@ function changeLang() {
 // const langSwitch = document.querySelector('[data-code="lang"]');
 document.addEventListener('keydown', changeLang);
 // langSwitch.addEventListener('click', changeLang);
+
+// капслок
+const capsLock = document.querySelector('[data-code="CapsLock"]');
+capsLock.classList.add('capslock');
+function capsLockOn() {
+  let data;
+  if (localStorage.lang === 'en') {
+    data = dataEn;
+  } else if (localStorage.lang === 'ru') {
+    data = dataRu;
+  }
+  if (capsLock.classList.contains('active')) {
+    const values = [];
+    for (let i = 0; i < data.length; i += 1) {
+      for (let j = 0; j < data[i].length; j += 1) {
+        values.push(data[i][j].caps);
+      }
+      for (let n = 0; n < values.length; n += 1) {
+        keys[n].textContent = values[n];
+      }
+    }
+  } else {
+    changeKeys(data);
+  }
+}
+capsLock.addEventListener('click', (e) => e.target.classList.toggle('active'));
+capsLock.addEventListener('click', capsLockOn);
