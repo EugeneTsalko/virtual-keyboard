@@ -129,3 +129,25 @@ function capsLockOn() {
 }
 capsLock.addEventListener('click', (e) => e.target.classList.toggle('active'));
 capsLock.addEventListener('click', capsLockOn);
+
+// стили
+const backSpace = document.querySelector('[data-code="Backspace"]');
+backSpace.classList.add('backspace');
+const tab = document.querySelector('[data-code="Tab"]');
+tab.classList.add('alter');
+const enter = document.querySelector('[data-code="Enter"]');
+enter.classList.add('enter');
+const shiftLeft = document.querySelector('[data-code="ShiftLeft"]');
+shiftLeft.classList.add('alter');
+const shiftRight = document.querySelector('[data-code="ShiftRight"]');
+shiftRight.classList.add('alter');
+const cntrlLeft = document.querySelector('[data-code="ControlLeft"]');
+cntrlLeft.classList.add('alter');
+const cntrlRight = document.querySelector('[data-code="ControlRight"]');
+cntrlRight.classList.add('alter');
+const altLeft = document.querySelector('[data-code="AltLeft"]');
+altLeft.classList.add('alter');
+const altRight = document.querySelector('[data-code="AltRight"]');
+altRight.classList.add('alter');
+const space = document.querySelector('[data-code="Space"]');
+space.classList.add('space');

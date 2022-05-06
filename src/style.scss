@@ -94,3 +94,15 @@ textarea {
         border-color:#29f305ed;
     }
 }
+.enter {
+    @include alterKey();
+    flex-grow: 2;
+}
+.space {
+    @include alterKey();
+    flex-grow: 16;
+}
+.backspace {
+    @include alterKey();
+    width: 130px;
+}

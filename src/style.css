@@ -77,4 +77,22 @@ textarea {
 }
 .capslock.active {
   border-color: rgba(41, 243, 5, 0.9294117647);
+}
+
+.enter {
+  background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2);
+  border-color: #c4c7cc #adb9cc #96a6bd;
+  flex-grow: 2;
+}
+
+.space {
+  background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2);
+  border-color: #c4c7cc #adb9cc #96a6bd;
+  flex-grow: 16;
+}
+
+.backspace {
+  background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2);
+  border-color: #c4c7cc #adb9cc #96a6bd;
+  width: 130px;
 }/*# sourceMappingURL=style.css.map */
