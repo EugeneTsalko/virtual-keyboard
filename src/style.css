@@ -52,7 +52,7 @@ textarea {
   border-width: 3px 7px 10px;
   border-style: solid;
   border-radius: 4px;
-  background: #d3cfcc;
+  background: linear-gradient(to right, #e5e2e1, #f5f3f1, #e5e2e1);
   border-color: #ece8e4 #dedad6 #c9c4c4;
   transition: transform 100ms;
   cursor: pointer;
@@ -65,4 +65,9 @@ textarea {
 .key:hover {
   border-color: rgba(236, 232, 228, 0.662745098) rgba(222, 218, 214, 0.4784313725) rgba(201, 196, 196, 0.5490196078);
   background: #e4e0dd;
+}
+.key.alter {
+  background: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2);
+  border-color: #c4c7cc #adb9cc #96a6bd;
+  flex-grow: 1;
 }/*# sourceMappingURL=style.css.map */
