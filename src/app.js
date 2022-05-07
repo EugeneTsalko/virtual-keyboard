@@ -103,7 +103,7 @@ const clickKey = (event) => {
 
 const typeKey = (event) => {
   textarea.focus();
-  console.log(event.target);
+  console.log(event.code);
   textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
 };
 
@@ -147,29 +147,34 @@ document.addEventListener('keydown', changeLang);
 // капслок
 const capsLock = document.querySelector('[data-code="CapsLock"]');
 capsLock.classList.add('capslock');
-function capsLockOn() {
-  let data;
-  if (localStorage.lang === 'en') {
-    data = dataEn;
-  } else if (localStorage.lang === 'ru') {
-    data = dataRu;
-  }
-  if (capsLock.classList.contains('active')) {
-    const values = [];
-    for (let i = 0; i < data.length; i += 1) {
-      for (let j = 0; j < data[i].length; j += 1) {
-        values.push(data[i][j].caps);
-      }
-      for (let n = 0; n < values.length; n += 1) {
-        keys[n].textContent = values[n];
-      }
+function capsLockOn(event) {
+  if (event.target === capsLock || event.code === 'CapsLock') {
+    let data;
+    if (localStorage.lang === 'en') {
+      data = dataEn;
+    } else if (localStorage.lang === 'ru') {
+      data = dataRu;
     }
-  } else {
-    changeKeys(data);
+    capsLock.classList.toggle('active');
+    if (capsLock.classList.contains('active')) {
+      // if (event.target === capsLock || event.code === 'CapsLock') {
+      const values = [];
+      for (let i = 0; i < data.length; i += 1) {
+        for (let j = 0; j < data[i].length; j += 1) {
+          values.push(data[i][j].caps);
+        }
+        for (let n = 0; n < values.length; n += 1) {
+          keys[n].textContent = values[n];
+        }
+      }
+    } else {
+      changeKeys(data);
+    }
   }
 }
-capsLock.addEventListener('click', (e) => e.target.classList.toggle('active'));
+// capsLock.addEventListener('click', (e) => e.target.classList.toggle('active'));
 capsLock.addEventListener('click', capsLockOn);
+document.addEventListener('keydown', capsLockOn);
 // ['click', 'keydown'].forEach((event) => capsLock.addEventListener(event, capsLockOn));
 
 // document.addEventListener('keydown', (event) => {
@@ -179,7 +184,7 @@ capsLock.addEventListener('click', capsLockOn);
 // шифт
 
 function shiftOn(event) {
-  if (event.target === shiftLeft || event.target === shiftRight) {
+  if (event.target === shiftLeft || event.target === shiftRight || event.code === 'ShiftRight' || event.code === 'ShiftLeft') {
     // console.log('ok')
     let data;
     if (localStorage.lang === 'en') {
@@ -200,17 +205,23 @@ function shiftOn(event) {
   }
 }
 
-function shiftOff() {
-  let data;
-  if (localStorage.lang === 'en') {
-    data = dataEn;
-  } else if (localStorage.lang === 'ru') {
-    data = dataRu;
+function shiftOff(event) {
+  if (event.target === shiftLeft || event.target === shiftRight || event.code === 'ShiftRight' || event.code === 'ShiftLeft') {
+    let data;
+    if (localStorage.lang === 'en') {
+      data = dataEn;
+    } else if (localStorage.lang === 'ru') {
+      data = dataRu;
+    }
+    changeKeys(data);
   }
-  changeKeys(data);
 }
 shiftLeft.addEventListener('mousedown', shiftOn);
 shiftRight.addEventListener('mousedown', shiftOn);
+document.addEventListener('keydown', shiftOn);
+document.addEventListener('keydown', shiftOn);
+document.addEventListener('keyup', shiftOff);
+document.addEventListener('keyup', shiftOff);
 shiftLeft.addEventListener('mouseup', shiftOff);
 shiftRight.addEventListener('mouseup', shiftOff);
 shiftLeft.addEventListener('mouseout', shiftOff);
