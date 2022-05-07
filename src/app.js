@@ -73,6 +73,7 @@ const altRight = document.querySelector('[data-code="AltRight"]');
 altRight.classList.add('alter');
 const space = document.querySelector('[data-code="Space"]');
 space.classList.add('space');
+const capsLock = document.querySelector('[data-code="CapsLock"]');
 
 // анимация и нажатие с клавиатуры
 
@@ -95,19 +96,37 @@ keys.forEach((element) => element.addEventListener('mouseout', (event) => event.
 
 const textarea = document.querySelector('.textarea');
 
-const clickKey = (event) => {
-  textarea.focus();
-  console.log(event.target);
-  textarea.value += event.target.innerHTML;
-};
+// const clickKey = (event) => {
+//   textarea.focus();
+//   // console.log(event.code);
+//   // if (event.target)
+//   textarea.value += event.target.innerHTML;
+// };
 
 const typeKey = (event) => {
   textarea.focus();
-  console.log(event.code);
-  textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
+  if (event.code === 'Space' || event.target === space) {
+    textarea.value += ' ';
+  } else if (event.code === 'Tab' || event.target === tab) {
+    // tab.preventDefault()
+    textarea.value += '    ';
+  } else if (event.code === 'Enter' || event.target === enter) {
+    textarea.value += '\n';
+  } else if (event.code === 'Backspace' || event.target === backSpace) {
+    textarea.value = textarea.value.slice(0, -1);
+  } else if (
+    ['CapsLock', 'ShiftLeft', 'ShiftRight', 'ControlLeft', 'AltLeft', 'AltRight', 'ControlRight'].includes(event.code)
+    || [capsLock, shiftLeft, shiftRight, cntrlLeft, cntrlRight, altLeft, altRight]
+      .includes(event.target)) {
+    textarea.value += '';
+  } else if (event.code !== undefined) {
+    textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
+  } else {
+    textarea.value += event.target.innerHTML;
+  }
 };
 
-keys.forEach((element) => element.addEventListener('click', clickKey));
+keys.forEach((element) => element.addEventListener('click', typeKey));
 document.addEventListener('keydown', typeKey);
 
 // смена языка
@@ -122,12 +141,13 @@ function changeKeys(data) {
     }
   }
 }
-
-function changeLang() {
-  const cntrl = document.querySelector('[data-code="ControlLeft"]');
-  const alt = document.querySelector('[data-code="AltLeft"]');
-  if (cntrl.classList.contains('pressed')) {
-    if (alt.classList.contains('pressed')) {
+const langSwitch = document.querySelector('[data-code="lang"]');
+function changeLang(event) {
+  // const cntrl = document.querySelector('[data-code="ControlLeft"]');
+  // const alt = document.querySelector('[data-code="AltLeft"]');
+  // const langSwitch = document.querySelector('[data-code="lang"]');
+  if (cntrlLeft.classList.contains('pressed') || event.target === langSwitch) {
+    if (altLeft.classList.contains('pressed') || event.target === langSwitch) {
       if (localStorage.lang === 'en') {
         localStorage.lang = 'ru';
         // console.log(localStorage.lang);
@@ -140,12 +160,14 @@ function changeLang() {
     }
   }
 }
+
+// function changeLang fro()
 // const langSwitch = document.querySelector('[data-code="lang"]');
 document.addEventListener('keydown', changeLang);
-// langSwitch.addEventListener('click', changeLang);
+langSwitch.addEventListener('click', changeLang);
 
 // капслок
-const capsLock = document.querySelector('[data-code="CapsLock"]');
+
 capsLock.classList.add('capslock');
 function capsLockOn(event) {
   if (event.target === capsLock || event.code === 'CapsLock') {
@@ -227,10 +249,8 @@ shiftRight.addEventListener('mouseup', shiftOff);
 shiftLeft.addEventListener('mouseout', shiftOff);
 shiftRight.addEventListener('mouseout', shiftOff);
 
-// РЕАЛИЗОВАТЬ ОТСУТСВИЕ ПЕЧАТИ НА УПРАВЛЯЮЩИХ КЛАВИШАХ
-// РЕАЛИЗОВАТЬ ШИФТ 2 ШТУКИ
-// РЕАЛИЗОВАТЬ БЭКСПЕЙС
-// РЕАЛИЗОВАТЬ ПЕРЕКЛЮЧЕНИЕ ЯЗЫКА ПО КНОПКЕ НА ВИРТ КЛАВЕ
-// РЕАЛИЗОВАТЬ ЭНТЕР
-// РЕАЛИЗОВАТЬ ТАБ
+// пофиксить стили на упр клавишах
+// сделать таб превентдефолт
 // РЕАЛИЗОВАТЬ ХЕДЕР ФУТЕР ТЕКСТ
+// убрать ошибки из консоли
+// отрефачить код
