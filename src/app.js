@@ -97,12 +97,13 @@ const textarea = document.querySelector('.textarea');
 
 const clickKey = (event) => {
   textarea.focus();
-  // console.log(event.target);
+  console.log(event.target);
   textarea.value += event.target.innerHTML;
 };
 
 const typeKey = (event) => {
   textarea.focus();
+  console.log(event.target);
   textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
 };
 
@@ -174,6 +175,46 @@ capsLock.addEventListener('click', capsLockOn);
 // document.addEventListener('keydown', (event) => {
 //   textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
 // });
+
+// шифт
+
+function shiftOn(event) {
+  if (event.target === shiftLeft || event.target === shiftRight) {
+    // console.log('ok')
+    let data;
+    if (localStorage.lang === 'en') {
+      data = dataEn;
+    } else if (localStorage.lang === 'ru') {
+      data = dataRu;
+    }
+
+    const values = [];
+    for (let i = 0; i < data.length; i += 1) {
+      for (let j = 0; j < data[i].length; j += 1) {
+        values.push(data[i][j].caps);
+      }
+      for (let n = 0; n < values.length; n += 1) {
+        keys[n].textContent = values[n];
+      }
+    }
+  }
+}
+
+function shiftOff() {
+  let data;
+  if (localStorage.lang === 'en') {
+    data = dataEn;
+  } else if (localStorage.lang === 'ru') {
+    data = dataRu;
+  }
+  changeKeys(data);
+}
+shiftLeft.addEventListener('mousedown', shiftOn);
+shiftRight.addEventListener('mousedown', shiftOn);
+shiftLeft.addEventListener('mouseup', shiftOff);
+shiftRight.addEventListener('mouseup', shiftOff);
+shiftLeft.addEventListener('mouseout', shiftOff);
+shiftRight.addEventListener('mouseout', shiftOff);
 
 // РЕАЛИЗОВАТЬ ОТСУТСВИЕ ПЕЧАТИ НА УПРАВЛЯЮЩИХ КЛАВИШАХ
 // РЕАЛИЗОВАТЬ ШИФТ 2 ШТУКИ
