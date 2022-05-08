@@ -5,7 +5,7 @@ import dataRu from './dataRu.js';
 
 const { body } = document;
 
-const buildNode = (element, innerHTML = '', ...classes) => {
+const buildNode = (element = 'div', innerHTML = '', ...classes) => {
   const node = document.createElement(element);
   node.classList.add(...classes);
   node.classList.add(...classes);
@@ -44,6 +44,10 @@ function buildKeys(data) {
   }
 }
 
+// function languageCheck() {
+
+// }
+
 (function () {
   if (localStorage.lang === 'ru') {
     buildKeys(dataRu);
@@ -79,13 +83,12 @@ const capsLock = document.querySelector('[data-code="CapsLock"]');
 
 // анимация и нажатие с клавиатуры
 
-document.addEventListener('keydown', (event) => {
-  // console.log(event.code);
-  document.querySelector(`[data-code="${event.code}"]`).classList.add('pressed');
-});
-document.addEventListener('keyup', (event) => {
-  document.querySelector(`[data-code="${event.code}"]`).classList.remove('pressed');
-});
+function toggleClass(event) {
+  document.querySelector(`[data-code="${event.code}"]`).classList.toggle('pressed');
+}
+
+document.addEventListener('keydown', toggleClass);
+document.addEventListener('keyup', toggleClass);
 
 // анимация и нажатие с мыши
 
@@ -97,13 +100,6 @@ keys.forEach((element) => element.addEventListener('mouseout', (event) => event.
 // печать
 
 const textarea = document.querySelector('.textarea');
-
-// const clickKey = (event) => {
-//   textarea.focus();
-//   // console.log(event.code);
-//   // if (event.target)
-//   textarea.value += event.target.innerHTML;
-// };
 
 const typeKey = (event) => {
   textarea.focus();
@@ -133,6 +129,7 @@ keys.forEach((element) => element.addEventListener('click', typeKey));
 document.addEventListener('keydown', typeKey);
 
 // смена языка
+
 function changeKeys(data) {
   const values = [];
   for (let i = 0; i < data.length; i += 1) {
@@ -146,9 +143,6 @@ function changeKeys(data) {
 }
 const langSwitch = document.querySelector('[data-code="lang"]');
 function changeLang(event) {
-  // const cntrl = document.querySelector('[data-code="ControlLeft"]');
-  // const alt = document.querySelector('[data-code="AltLeft"]');
-  // const langSwitch = document.querySelector('[data-code="lang"]');
   if (cntrlLeft.classList.contains('pressed') || event.target === langSwitch) {
     if (altLeft.classList.contains('pressed') || event.target === langSwitch) {
       if (localStorage.lang === 'en') {
@@ -164,8 +158,6 @@ function changeLang(event) {
   }
 }
 
-// function changeLang fro()
-// const langSwitch = document.querySelector('[data-code="lang"]');
 document.addEventListener('keydown', changeLang);
 langSwitch.addEventListener('click', changeLang);
 
@@ -201,10 +193,6 @@ function capsLockOn(event) {
 capsLock.addEventListener('click', capsLockOn);
 document.addEventListener('keydown', capsLockOn);
 // ['click', 'keydown'].forEach((event) => capsLock.addEventListener(event, capsLockOn));
-
-// document.addEventListener('keydown', (event) => {
-//   textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
-// });
 
 // шифт
 
@@ -253,8 +241,9 @@ shiftLeft.addEventListener('mouseout', shiftOff);
 shiftRight.addEventListener('mouseout', shiftOff);
 
 // сделать таб превентдефолт
-// РЕАЛИЗОВАТЬ ХЕДЕР ФУТЕР ТЕКСТ
 // убрать ошибки из консоли
 // если зажать альт и пробел зажимается и кнтрл лефт??
 // капслок при смене языка, капслок+шифт
 // отрефачить код
+// фишки ES6: есть спред оператор, есть значение аттрибуттов по умолчанию,
+// используется метод .includes()
