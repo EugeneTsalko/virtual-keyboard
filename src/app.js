@@ -105,6 +105,7 @@ const textarea = document.querySelector('.textarea');
 
 const typeKey = (event) => {
   textarea.focus();
+  // console.log(event.code);
   if (event.code === 'Space' || event.target === space) {
     textarea.value += ' ';
   } else if (event.code === 'Tab' || event.target === tab) {
