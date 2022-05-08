@@ -84,7 +84,11 @@ const capsLock = document.querySelector('[data-code="CapsLock"]');
 // анимация и нажатие с клавиатуры
 
 function toggleClass(event) {
-  document.querySelector(`[data-code="${event.code}"]`).classList.toggle('pressed');
+  // console.log(document.querySelector(`[data-code="${event.code}"]`));
+  const elem = document.querySelector(`[data-code="${event.code}"]`);
+  if (elem) {
+    elem.classList.toggle('pressed');
+  }
 }
 
 document.addEventListener('keydown', toggleClass);
@@ -119,7 +123,10 @@ const typeKey = (event) => {
       .includes(event.target)) {
     textarea.value += '';
   } else if (event.code !== undefined) {
-    textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
+    const element = document.querySelector(`[data-code="${event.code}"]`);
+    if (element) {
+      textarea.value += document.querySelector(`[data-code="${event.code}"]`).innerHTML;
+    }
   } else {
     textarea.value += event.target.innerHTML;
   }
@@ -241,7 +248,6 @@ shiftLeft.addEventListener('mouseout', shiftOff);
 shiftRight.addEventListener('mouseout', shiftOff);
 
 // сделать таб превентдефолт
-// убрать ошибки из консоли
 // если зажать альт и пробел зажимается и кнтрл лефт??
 // капслок при смене языка, капслок+шифт
 // отрефачить код
