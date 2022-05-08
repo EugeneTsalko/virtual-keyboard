@@ -24,6 +24,8 @@ const buildNode = (element, innerHTML = '', ...classes) => {
   wrapper.append(textarea);
   const keyboard = buildNode('div', '', 'keyboard');
   wrapper.append(keyboard);
+  const footer = buildNode('div', 'To change language press cntrl + alt or click eng/ru button on virtual keyboard', 'footer');
+  wrapper.append(footer);
 }());
 
 const keyboard = document.querySelector('.keyboard');
@@ -250,8 +252,9 @@ shiftRight.addEventListener('mouseup', shiftOff);
 shiftLeft.addEventListener('mouseout', shiftOff);
 shiftRight.addEventListener('mouseout', shiftOff);
 
-// пофиксить стили на упр клавишах
 // сделать таб превентдефолт
 // РЕАЛИЗОВАТЬ ХЕДЕР ФУТЕР ТЕКСТ
 // убрать ошибки из консоли
+// если зажать альт и пробел зажимается и кнтрл лефт??
+// капслок при смене языка, капслок+шифт
 // отрефачить код
