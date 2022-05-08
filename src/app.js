@@ -44,10 +44,6 @@ function buildKeys(data) {
   }
 }
 
-// function languageCheck() {
-
-// }
-
 (function () {
   if (localStorage.lang === 'ru') {
     buildKeys(dataRu);
@@ -84,7 +80,6 @@ const capsLock = document.querySelector('[data-code="CapsLock"]');
 // анимация и нажатие с клавиатуры
 
 function toggleClass(event) {
-  // console.log(document.querySelector(`[data-code="${event.code}"]`));
   const elem = document.querySelector(`[data-code="${event.code}"]`);
   if (elem) {
     elem.classList.toggle('pressed');
@@ -107,11 +102,9 @@ const textarea = document.querySelector('.textarea');
 
 const typeKey = (event) => {
   textarea.focus();
-  // console.log(event.code);
   if (event.code === 'Space' || event.target === space) {
     textarea.value += ' ';
   } else if (event.code === 'Tab' || event.target === tab) {
-    // tab.preventDefault()
     textarea.value += '    ';
   } else if (event.code === 'Enter' || event.target === enter) {
     textarea.value += '\n';
@@ -154,11 +147,9 @@ function changeLang(event) {
     if (altLeft.classList.contains('pressed') || event.target === langSwitch) {
       if (localStorage.lang === 'en') {
         localStorage.lang = 'ru';
-        // console.log(localStorage.lang);
         changeKeys(dataRu);
       } else if (localStorage.lang === 'ru') {
         localStorage.lang = 'en';
-        // console.log(localStorage.lang);
         changeKeys(dataEn);
       }
     }
@@ -181,7 +172,6 @@ function capsLockOn(event) {
     }
     capsLock.classList.toggle('active');
     if (capsLock.classList.contains('active')) {
-      // if (event.target === capsLock || event.code === 'CapsLock') {
       const values = [];
       for (let i = 0; i < data.length; i += 1) {
         for (let j = 0; j < data[i].length; j += 1) {
@@ -196,16 +186,13 @@ function capsLockOn(event) {
     }
   }
 }
-// capsLock.addEventListener('click', (e) => e.target.classList.toggle('active'));
 capsLock.addEventListener('click', capsLockOn);
 document.addEventListener('keydown', capsLockOn);
-// ['click', 'keydown'].forEach((event) => capsLock.addEventListener(event, capsLockOn));
 
 // шифт
 
 function shiftOn(event) {
   if (event.target === shiftLeft || event.target === shiftRight || event.code === 'ShiftRight' || event.code === 'ShiftLeft') {
-    // console.log('ok')
     let data;
     if (localStorage.lang === 'en') {
       data = dataEn;
