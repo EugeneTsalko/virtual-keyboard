@@ -24,7 +24,7 @@ const buildNode = (element = 'div', innerHTML = '', ...classes) => {
   wrapper.append(textarea);
   const keyboard = buildNode('div', '', 'keyboard');
   wrapper.append(keyboard);
-  const footer = buildNode('div', 'To change language press cntrl + alt or click eng/ru button on virtual keyboard', 'footer');
+  const footer = buildNode('div', 'To change language press ctrl + alt or click eng/ru button on virtual keyboard. Created on Windows 10.', 'footer');
   wrapper.append(footer);
 }());
 
@@ -164,6 +164,7 @@ langSwitch.addEventListener('click', changeLang);
 
 // капслок
 
+let capsStatus = false;
 capsLock.classList.add('capslock');
 function capsLockOn(event) {
   if (event.target === capsLock || event.code === 'CapsLock') {
@@ -175,6 +176,7 @@ function capsLockOn(event) {
     }
     capsLock.classList.toggle('active');
     if (capsLock.classList.contains('active')) {
+      capsStatus = true;
       const values = [];
       for (let i = 0; i < data.length; i += 1) {
         for (let j = 0; j < data[i].length; j += 1) {
@@ -185,9 +187,11 @@ function capsLockOn(event) {
         }
       }
     } else {
+      capsStatus = false;
       changeKeys(data);
     }
   }
+  console.log(capsStatus);
 }
 capsLock.addEventListener('click', capsLockOn);
 document.addEventListener('keydown', capsLockOn);
@@ -202,7 +206,7 @@ function shiftOn(event) {
     } else if (localStorage.lang === 'ru') {
       data = dataRu;
     }
-
+    if(capsStatus === false) {
     const values = [];
     for (let i = 0; i < data.length; i += 1) {
       for (let j = 0; j < data[i].length; j += 1) {
@@ -212,7 +216,10 @@ function shiftOn(event) {
         keys[n].textContent = values[n];
       }
     }
+  } else {
+    changeKeys(data);
   }
+}
 }
 
 function shiftOff(event) {
@@ -223,23 +230,28 @@ function shiftOff(event) {
     } else if (localStorage.lang === 'ru') {
       data = dataRu;
     }
+    if (capsStatus === false){
     changeKeys(data);
+    } else {
+      const values = [];
+    for (let i = 0; i < data.length; i += 1) {
+      for (let j = 0; j < data[i].length; j += 1) {
+        values.push(data[i][j].caps);
+      }
+      for (let n = 0; n < values.length; n += 1) {
+        keys[n].textContent = values[n];
+      }
+    }
+    }
   }
 }
 shiftLeft.addEventListener('mousedown', shiftOn);
 shiftRight.addEventListener('mousedown', shiftOn);
 document.addEventListener('keydown', shiftOn);
-document.addEventListener('keydown', shiftOn);
+// document.addEventListener('keydown', shiftOn);
 document.addEventListener('keyup', shiftOff);
-document.addEventListener('keyup', shiftOff);
+// document.addEventListener('keyup', shiftOff);
 shiftLeft.addEventListener('mouseup', shiftOff);
 shiftRight.addEventListener('mouseup', shiftOff);
 shiftLeft.addEventListener('mouseout', shiftOff);
 shiftRight.addEventListener('mouseout', shiftOff);
-
-// сделать таб превентдефолт
-// если зажать альт и пробел зажимается и кнтрл лефт??
-// капслок при смене языка, капслок+шифт
-// отрефачить код
-// фишки ES6: есть спред оператор, есть значение аттрибуттов по умолчанию,
-// используется метод .includes()
