@@ -249,9 +249,7 @@ function shiftOff(event) {
 shiftLeft.addEventListener('mousedown', shiftOn);
 shiftRight.addEventListener('mousedown', shiftOn);
 document.addEventListener('keydown', shiftOn);
-// document.addEventListener('keydown', shiftOn);
 document.addEventListener('keyup', shiftOff);
-// document.addEventListener('keyup', shiftOff);
 shiftLeft.addEventListener('mouseup', shiftOff);
 shiftRight.addEventListener('mouseup', shiftOff);
 shiftLeft.addEventListener('mouseout', shiftOff);
