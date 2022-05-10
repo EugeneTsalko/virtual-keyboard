@@ -44,7 +44,7 @@ function buildKeys(data) {
   }
 }
 
-(function () {
+(function() {
   if (localStorage.lang === 'ru') {
     buildKeys(dataRu);
   } else {
@@ -79,6 +79,8 @@ const capsLock = document.querySelector('[data-code="CapsLock"]');
 const langSwitch = document.querySelector('[data-code="lang"]');
 
 // анимация и нажатие с клавиатуры
+
+document.addEventListener('keydown', (e) => e.preventDefault()); // фикс таба, альта и тд
 
 function toggleClass(event) {
   const elem = document.querySelector(`[data-code="${event.code}"]`);
