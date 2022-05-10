@@ -44,7 +44,7 @@ function buildKeys(data) {
   }
 }
 
-(function() {
+(function buildFullPage() {
   if (localStorage.lang === 'ru') {
     buildKeys(dataRu);
   } else {
@@ -191,8 +191,8 @@ function capsLockOn(event) {
       changeKeys(data);
     }
   }
-  console.log(capsStatus);
 }
+
 capsLock.addEventListener('click', capsLockOn);
 document.addEventListener('keydown', capsLockOn);
 
@@ -206,20 +206,21 @@ function shiftOn(event) {
     } else if (localStorage.lang === 'ru') {
       data = dataRu;
     }
-    if(capsStatus === false) {
-    const values = [];
-    for (let i = 0; i < data.length; i += 1) {
-      for (let j = 0; j < data[i].length; j += 1) {
-        values.push(data[i][j].caps);
+
+    if (capsStatus === false) {
+      const values = [];
+      for (let i = 0; i < data.length; i += 1) {
+        for (let j = 0; j < data[i].length; j += 1) {
+          values.push(data[i][j].caps);
+        }
+        for (let n = 0; n < values.length; n += 1) {
+          keys[n].textContent = values[n];
+        }
       }
-      for (let n = 0; n < values.length; n += 1) {
-        keys[n].textContent = values[n];
-      }
+    } else {
+      changeKeys(data);
     }
-  } else {
-    changeKeys(data);
   }
-}
 }
 
 function shiftOff(event) {
@@ -230,18 +231,18 @@ function shiftOff(event) {
     } else if (localStorage.lang === 'ru') {
       data = dataRu;
     }
-    if (capsStatus === false){
-    changeKeys(data);
+    if (capsStatus === false) {
+      changeKeys(data);
     } else {
       const values = [];
-    for (let i = 0; i < data.length; i += 1) {
-      for (let j = 0; j < data[i].length; j += 1) {
-        values.push(data[i][j].caps);
+      for (let i = 0; i < data.length; i += 1) {
+        for (let j = 0; j < data[i].length; j += 1) {
+          values.push(data[i][j].caps);
+        }
+        for (let n = 0; n < values.length; n += 1) {
+          keys[n].textContent = values[n];
+        }
       }
-      for (let n = 0; n < values.length; n += 1) {
-        keys[n].textContent = values[n];
-      }
-    }
     }
   }
 }
