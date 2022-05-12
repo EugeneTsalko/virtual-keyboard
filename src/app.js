@@ -85,12 +85,19 @@ document.addEventListener('keydown', (e) => e.preventDefault()); // фикс т�
 function toggleClass(event) {
   const elem = document.querySelector(`[data-code="${event.code}"]`);
   if (elem) {
-    elem.classList.toggle('pressed');
+    elem.classList.add('pressed');
+  }
+}
+
+function toggleClassOff(event) {
+  const elem = document.querySelector(`[data-code="${event.code}"]`);
+  if (elem) {
+    elem.classList.remove('pressed');
   }
 }
 
 document.addEventListener('keydown', toggleClass);
-document.addEventListener('keyup', toggleClass);
+document.addEventListener('keyup', toggleClassOff);
 
 // анимация и нажатие с мыши
 
@@ -211,14 +218,22 @@ function shiftOn(event) {
       const values = [];
       for (let i = 0; i < data.length; i += 1) {
         for (let j = 0; j < data[i].length; j += 1) {
-          values.push(data[i][j].caps);
+          values.push(data[i][j].shift);
         }
         for (let n = 0; n < values.length; n += 1) {
           keys[n].textContent = values[n];
         }
       }
     } else {
-      changeKeys(data);
+      const values = [];
+      for (let i = 0; i < data.length; i += 1) {
+        for (let j = 0; j < data[i].length; j += 1) {
+          values.push(data[i][j].shift.toLowerCase());
+        }
+        for (let n = 0; n < values.length; n += 1) {
+          keys[n].textContent = values[n];
+        }
+      }
     }
   }
 }
