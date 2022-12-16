@@ -1,0 +1,117 @@
+@import url(https://fonts.googleapis.com/css?family=Average+Sans);
+// Colours
+$background: #C8F2EF;
+$keyboardMain:#f5f3f1;
+$keyboardSecond: #cdd3de;
+$keyBorder: #ece8e4 #dedad6 #c9c4c4;
+$keyMainGradient: linear-gradient(to right, #e5e2e1, #f5f3f1, #e5e2e1);
+$keyAlterGradient: linear-gradient(to right, #bbc3d2, #cdd3de, #bbc3d2);
+
+@mixin alterKey {
+    background: $keyAlterGradient;
+    border-color: #c4c7cc #adb9cc #96a6bd;
+}
+
+body {
+    display: flex; 
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;  
+    background-color: $background;
+    font-family: 'Average Sans', sans-serif;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    justify-content: space-between;
+    align-content: center;
+    padding: 10px;
+}
+
+textarea {
+    padding: 1em;
+    border-radius: 10px;
+    resize: none;
+    height: 250px;
+    margin-bottom: 50px;
+    background-color: white;
+    border-width: 10px;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: #ece8e4 #dedad6 #c9c4c4;
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%), inset 0 0 3px rgb(0 0 0 / 30%);
+}
+
+.keyboard {
+    padding: 30px 10px 15px;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #e5e2e1, $keyboardMain, #e5e2e1);
+    box-shadow: 0 0 10px rgb(0 0 0 / 20%), inset 0 0 3px rgb(0 0 0 / 30%);
+    width: 874px;
+    height: 314px;
+    display: flex;
+    flex-direction: column;
+}
+
+.keyboard-row {
+    display: flex;
+    padding: 2px;
+    background: #4d4d4d;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.key {
+    width: 40px;
+    height: 45px;
+    margin: 2px;
+    border-width: 3px 7px 10px;
+    border-style: solid;
+    border-radius: 4px;
+    background: $keyMainGradient;
+    border-color: #ece8e4 #dedad6 #c9c4c4;
+    transition: transform 100ms;
+    cursor: pointer;
+    &.pressed {
+        transform: scale(0.95, 0.95) translate(0, 3px);
+        border-color:#29f305ed;
+    }
+    &:hover {
+        border-color:#29f305ed;
+    }
+    &.alter {
+        @include alterKey();
+        flex-grow: 1;
+        &.pressed {
+            transform: scale(0.95, 0.95) translate(0, 3px);
+            border-color:#29f305ed; 
+        }
+        &:hover {
+            border-color:#29f305ed;
+        }
+    }
+}
+
+.capslock {
+    @include alterKey();
+    flex-grow: 1;
+    &.active {
+        border-color:#29f305ed;
+    }
+}
+.enter {
+    @include alterKey();
+    flex-grow: 2;
+}
+.space {
+    @include alterKey();
+    flex-grow: 16;
+}
+.backspace {
+    @include alterKey();
+    width: 130px;
+}
